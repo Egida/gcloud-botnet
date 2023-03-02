@@ -110,7 +110,7 @@ create_bot()
 		debug "Creating bot #$i\n"
 		[ -n "$BOT" -a "$NUM_BOTS" == 1 ] && botid="$BOT" || botid=$(rand_str 4)
 		botname="bot-$BOTNET_ID-$botid"
-		for ((tries=0; tries<1033; tries++)); do
+		for ((tries=0; tries<10; tries++)); do
 			[ -n "$ZONE" ] && zone="$ZONE" || zone="$(rand_zone)"
 			gcloud compute instances create "$botname" \
 		 		   --source-instance-template bot --zone "$zone" \
