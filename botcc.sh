@@ -86,7 +86,7 @@ init()
 
 get_bot_zone()
 {
-	: "${1:?\"No bot specified in call to get_bot_zone\"}"
+	: "${1:?No bot specified in call to get_bot_zone}"
 	gcloud compute instances list --format="value(name,zone)" |
 		grep -m1 "$1" |
 		awk '{print $2}'
@@ -94,7 +94,7 @@ get_bot_zone()
 
 get_botnet_hosts()
 {
-	: "${1:?"No botnet specified in call to get_botnet_hosts"}"
+	: "${1:?No botnet specified in call to get_botnet_hosts}"
 		# get list of botnet hosts
 	gcloud compute instances list --format="value(name)" -q 2>/dev/null |
 		grep -e "-$1-"
@@ -161,7 +161,7 @@ action_on_bot()
 
 remove_bot_impl()
 {
-	: "${1:?\"No bot is specified in call to remove_bot_impl\"}"
+	: "${1:?No bot is specified in call to remove_bot_impl}"
 	zone="$(get_bot_zone "$1")"
 	debug "Removing bot $1 in zone $zone...\n"
 	if [ -n "$ASYNC" ]; then
@@ -178,7 +178,7 @@ delete_bot()
 
 run_bot_impl()
 {
-	: "${1:?\"No bot is specified in call to run_bot_impl\"}"
+	: "${1:?No bot is specified in call to run_bot_impl}"
 	: "${2:?No command is specified to run on bot}"
 	zone="$(get_bot_zone "$1")"
 	debug "Running command on bot $1 in zone $zone...\n"
