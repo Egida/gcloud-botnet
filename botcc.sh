@@ -186,6 +186,7 @@ create_bot()
 action_on_bot()
 {
 	local action="${1:?No action supplied in action_on_bot}"
+	shift
 	if [ "$NUM_BOTS" == all ]; then
 		[ -z "$BOTNET_ID" ] && die "No botnet specified, so can't act on it\n"
 		for bot in $(get_botnet_hosts "$BOTNET_ID"); do
@@ -415,7 +416,7 @@ esac
 
 # some preparations
 init # implement me ;)
-
+#set -x
 # And now we dispatch user selected action to an appropriate function.
 if [ "$ACTION" == create ]; then
 	msg "Starting to create a botnet...\n"
